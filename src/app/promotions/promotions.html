@@ -1,0 +1,105 @@
+<div class="promotions-container">
+  <div class="background-overlay"></div>
+  <div class="promotions-content">
+    
+    <!-- En-tête avec animation -->
+    <div class="promotions-header">
+      <h1>Promotions Exclusives ✨</h1>
+      <p class="subtitle">Découvrez nos offres spéciales et économisez sur vos favoris</p>
+      <div class="header-decoration">
+        <div class="decoration-item"></div>
+        <div class="decoration-item"></div>
+        <div class="decoration-item"></div>
+      </div>
+    </div>
+
+    <!-- Grille des promotions -->
+    <div class="promotions-grid">
+      <div class="promotion-card" 
+           *ngFor="let promo of promotions" 
+           [class.active]="estActive(promo)"
+           [class.soon]="!estActive(promo)"
+           [style.--accent-color]="promo.couleur">
+        
+        <!-- Badge de statut -->
+        <div class="status-badge" [class.active]="estActive(promo)">
+          {{ estActive(promo) ? '🔥 Active' : '📅 Bientôt' }}
+        </div>
+
+        <!-- Image de la promotion -->
+        <div class="promo-image">
+          <img [src]="promo.image" [alt]="promo.titre">
+          <div class="image-overlay"></div>
+        </div>
+
+        <!-- Contenu de la promotion -->
+        <div class="promo-content">
+          <h3>{{ promo.titre }}</h3>
+          <p class="promo-description">{{ promo.description }}</p>
+          
+          <!-- Dates et compte à rebours -->
+          <div class="promo-dates">
+            <div class="date-item">
+              <span class="date-label">Début:</span>
+              <span class="date-value">{{ promo.dateDebut | date:'dd/MM/yyyy' }}</span>
+            </div>
+            <div class="date-item">
+              <span class="date-label">Fin:</span>
+              <span class="date-value">{{ promo.dateFin | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+
+          <!-- Code promo avec effet de copie -->
+          <div class="code-promo-container">
+            <span class="code-label">Code promo:</span>
+            <div class="code-promo" (click)="copierCode(promo.codePromo)">
+              <span class="code-text">{{ promo.codePromo }}</span>
+              <span class="copy-icon">📋</span>
+              <span class="copy-tooltip">Cliquer pour copier</span>
+            </div>
+          </div>
+
+          <!-- Jours restants -->
+          <div class="jours-restants" *ngIf="estActive(promo)">
+            <div class="progress-container">
+              <div class="progress-bar">
+                <div class="progress-fill" [style.width.%]="(30 - joursRestants(promo)) / 30 * 100"></div>
+              </div>
+              <span class="jours-text">{{ joursRestants(promo) }} jours restants</span>
+            </div>
+          </div>
+
+          <!-- Bouton d'action -->
+          <button class="btn-promo" 
+                  [class.active]="estActive(promo)"
+                  (click)="estActive(promo) ? profiterPromotion(promo) : programmerRappel(promo)">
+            {{ estActive(promo) ? 'Profiter de l\'offre' : 'Programmer un rappel' }}
+          </button>
+        </div>
+
+        <!-- Effet de coin décoratif -->
+        <div class="corner-decoration"></div>
+      </div>
+    </div>
+
+    <!-- Section d'information -->
+    <div class="info-section">
+      <div class="info-card">
+        <div class="info-icon">💎</div>
+        <h4>Offres Exclusives</h4>
+        <p>Des promotions uniques créées spécialement pour nos clients fidèles</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">⏰</div>
+        <h4>Durée Limitée</h4>
+        <p>Profitez-en vite ! Ces offres spéciales ne durent pas éternellement</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🎁</div>
+        <h4>Cadeaux Surprises</h4>
+        <p>Des surprises supplémentaires vous attendent dans notre café</p>
+      </div>
+    </div>
+
+  </div>
+</div>

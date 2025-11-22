@@ -1,0 +1,26 @@
+<header class="header" [class.scrolled]="isScrolled">
+  <!-- Logo centré -->
+  <div class="logo-container">
+    <img src="assets/logo.jpg" alt="Barista's" class="logo" />
+    <p class="tagline">The coffee specialist</p>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a routerLink="/" routerLinkActive="active" class="nav-link">ACCUEIL</a>
+    <a routerLink="/menu" routerLinkActive="active" class="nav-link">MENU</a>
+    <a routerLink="/promotions" routerLinkActive="active" class="nav-link promo-link">
+      PROMOTIONS 
+      <span class="promo-badge">🔥</span>
+    </a>
+    <a routerLink="/reservation1" routerLinkActive="active" class="nav-link">RÉSERVER</a>
+    <a routerLink="/clients" routerLinkActive="active" class="nav-link">CLIENTS</a>
+    <a routerLink="/contact" routerLinkActive="active" class="nav-link">CONTACT</a>
+    <a 
+      href="https://www.google.com/maps/place/ISET+Mahdia/" 
+      target="_blank"
+      class="location-link">
+      Localisation
+    </a>
+  </nav>
+</header>

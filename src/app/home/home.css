@@ -1,0 +1,498 @@
+/* =========================================
+   HERO SECTION AVEC ANIMATIONS COSMIQUES
+   ========================================= */
+   .hero {
+    position: relative;
+    height: 100vh;
+    background-image: url('/assets/banner-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    animation: heroReveal 1.5s ease-out;
+  }
+  
+  @keyframes heroReveal {
+    from {
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    }
+    to {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+  }
+  
+  /* Overlay animé */
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(181, 101, 29, 0.3) 50%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
+    animation: overlayShift 6s ease-in-out infinite;
+  }
+  
+  @keyframes overlayShift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  
+  /* Contenu hero avec entrée spectaculaire */
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 20px;
+    animation: contentZoomIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s both;
+  }
+  
+  @keyframes contentZoomIn {
+    from {
+      opacity: 0;
+      transform: scale(0.8) translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+  
+  .hero h1 {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 
+      2px 2px 4px rgba(0, 0, 0, 0.5),
+      0 0 30px rgba(181, 101, 29, 0.5);
+    animation: titleGlow 3s ease-in-out infinite;
+    font-weight: 800;
+    letter-spacing: 2px;
+    background: linear-gradient(45deg, #fff, #f3e5d8, #fff);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: titleGradient 4s ease infinite, titleFloat 6s ease-in-out infinite;
+  }
+  
+  @keyframes titleGradient {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  
+  @keyframes titleFloat {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  .hero p {
+    font-size: 1.4rem;
+    margin-bottom: 3rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    animation: subtitleFade 1.5s ease 0.8s both;
+    line-height: 1.6;
+    color: #f3e5d8;
+  }
+  
+  @keyframes subtitleFade {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Boutons avec effets holographiques */
+  .buttons {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    animation: buttonsSlideUp 1s ease 1s both;
+  }
+  
+  @keyframes buttonsSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .btn {
+    padding: 16px 35px;
+    background: linear-gradient(135deg, #b5651d, #9a4e0f);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    animation: btnPulse 2s ease-in-out infinite;
+    box-shadow: 
+      0 8px 25px rgba(181, 101, 29, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  
+  @keyframes btnPulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 
+        0 8px 25px rgba(181, 101, 29, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 
+        0 12px 35px rgba(181, 101, 29, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+  }
+  
+  .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    transition: left 0.6s ease;
+  }
+  
+  .btn:hover::before {
+    left: 100%;
+  }
+  
+  .btn:hover {
+    background: linear-gradient(135deg, #9a4e0f, #7a3d0c);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 
+      0 15px 40px rgba(181, 101, 29, 0.6),
+      0 0 30px rgba(181, 101, 29, 0.4);
+  }
+  
+  /* =========================================
+     SECTION APERÇU PLATS AVEC ANIMATIONS 3D
+     ========================================= */
+  .home-preview {
+    padding: 100px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #faf7f3 0%, #f3e5d8 50%, #faf7f3 100%);
+    position: relative;
+    overflow: hidden;
+    animation: sectionReveal 1s ease-out;
+  }
+  
+  @keyframes sectionReveal {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .home-preview::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(181, 101, 29, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(154, 78, 15, 0.1) 0%, transparent 50%);
+    animation: backgroundFloat 8s ease-in-out infinite;
+  }
+  
+  @keyframes backgroundFloat {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    33% {
+      transform: translateY(-20px) rotate(120deg);
+    }
+    66% {
+      transform: translateY(10px) rotate(240deg);
+    }
+  }
+  
+  .home-preview h2 {
+    font-size: 3rem;
+    margin-bottom: 60px;
+    color: #2c2c2c;
+    position: relative;
+    animation: titleSlideIn 1s ease 0.3s both;
+  }
+  
+  @keyframes titleSlideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-100px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .home-preview h2::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, #b5651d, #9a4e0f);
+    border-radius: 2px;
+    animation: lineExpand 1s ease 0.8s both;
+  }
+  
+  @keyframes lineExpand {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100px;
+    }
+  }
+  
+  /* Grille des plats avec animations en cascade */
+  .menu-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .plat-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 
+      0 10px 30px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(181, 101, 29, 0.1);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    animation: cardPopIn 0.8s ease both;
+  }
+  
+  .plat-card:nth-child(1) { animation-delay: 0.1s; }
+  .plat-card:nth-child(2) { animation-delay: 0.2s; }
+  .plat-card:nth-child(3) { animation-delay: 0.3s; }
+  
+  @keyframes cardPopIn {
+    from {
+      opacity: 0;
+      transform: scale(0.8) translateY(50px) rotateX(45deg);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0) rotateX(0);
+    }
+  }
+  
+  .plat-card:hover {
+    transform: 
+      translateY(-15px) 
+      scale(1.03) 
+      rotateY(5deg);
+    box-shadow: 
+      0 25px 50px rgba(0, 0, 0, 0.15),
+      0 0 30px rgba(181, 101, 29, 0.3);
+    animation: cardHoverPulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes cardHoverPulse {
+    0%, 100% {
+      box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.15),
+        0 0 30px rgba(181, 101, 29, 0.3);
+    }
+    50% {
+      box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.15),
+        0 0 50px rgba(181, 101, 29, 0.5);
+    }
+  }
+  
+  .plat-img {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .plat-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.6s ease;
+    filter: brightness(0.9);
+  }
+  
+  .plat-card:hover .plat-img img {
+    transform: scale(1.15) rotate(2deg);
+    filter: brightness(1);
+  }
+  
+  .plat-card h3 {
+    margin: 20px 0 10px;
+    font-size: 1.4rem;
+    color: #2c2c2c;
+    font-weight: 700;
+    transition: color 0.3s ease;
+  }
+  
+  .plat-card:hover h3 {
+    color: #b5651d;
+  }
+  
+  .plat-card p {
+    font-size: 1.3rem;
+    color: #b5651d;
+    font-weight: 700;
+    margin-bottom: 20px;
+    animation: pricePulse 3s ease-in-out infinite;
+  }
+  
+  @keyframes pricePulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+  
+  /* =========================================
+     RESPONSIVE AVEC ANIMATIONS
+     ========================================= */
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+    
+    .hero p {
+      font-size: 1.1rem;
+    }
+    
+    .buttons {
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .btn {
+      padding: 14px 30px;
+      width: 200px;
+    }
+    
+    .home-preview h2 {
+      font-size: 2.2rem;
+    }
+    
+    .menu-preview {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    
+    .plat-card {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .hero {
+      height: 80vh;
+    }
+    
+    .hero h1 {
+      font-size: 2rem;
+    }
+    
+    .hero p {
+      font-size: 1rem;
+    }
+    
+    .home-preview {
+      padding: 60px 20px;
+    }
+    
+    .home-preview h2 {
+      font-size: 1.8rem;
+    }
+    
+    .plat-img {
+      height: 180px;
+    }
+  }
+  
+  /* Effet de particules dans le hero */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(2px 2px at 20% 30%, rgba(255, 255, 255, 0.3) 50%, transparent 100%),
+      radial-gradient(2px 2px at 40% 70%, rgba(255, 255, 255, 0.3) 50%, transparent 100%),
+      radial-gradient(1px 1px at 60% 20%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+    background-size: 200px 200px;
+    animation: heroTwinkle 4s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  @keyframes heroTwinkle {
+    0%, 100% {
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }

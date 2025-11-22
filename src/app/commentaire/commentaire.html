@@ -1,0 +1,51 @@
+<div class="commentaire-container">
+  <!-- Header -->
+  <header class="header">
+    <h1 class="main-title">Commentaire</h1>
+  </header>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section">
+    <div class="section-header">
+      <h2 class="section-title">Témoignages</h2>
+      <h3 class="section-subtitle">Ce que disent nos clients</h3>
+      <div class="title-decoration"></div>
+    </div>
+
+    <!-- Testimonials Grid -->
+    <div class="testimonials-grid">
+      <div class="testimonial-card" *ngFor="let testimonial of testimonials; let i = index">
+        <!-- Rating Stars -->
+        <div class="rating">
+          <span class="star" *ngFor="let star of [1,2,3,4,5]">★</span>
+        </div>
+        
+        <!-- Testimonial Text -->
+        <p class="testimonial-text">{{ testimonial.text }}</p>
+        
+        <!-- Client Info -->
+        <div class="client-info">
+          <div class="client-avatar">
+            <img [src]="testimonial.avatar" [alt]="testimonial.clientName" class="avatar-image">
+          </div>
+          <div class="client-details">
+            <strong class="client-name">{{ testimonial.clientName }}</strong>
+            <span class="client-profession">{{ testimonial.profession }}</span>
+          </div>
+        </div>
+
+        <!-- Quote Icon -->
+        <div class="quote-icon">❝</div>
+      </div>
+    </div>
+
+    <!-- Navigation Dots -->
+    <div class="navigation-dots">
+      <button *ngFor="let dot of [0,1,2]; let i = index" 
+              class="dot" 
+              [class.active]="i === currentTestimonial"
+              (click)="currentTestimonial = i">
+      </button>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,567 @@
+/* Variables CSS modernes - Palette Marron & Blanc */
+:root {
+  --primary-brown: #8B7355;
+  --dark-brown: #8B4513;
+  --golden-brown: #D2691E;
+  --light-brown: #A52A2A;
+  --cream: #FFF8F0;
+  --light-cream: #FFFAF5;
+  --white: #FFFFFF;
+  --dark-text: #2A2A2A;
+  --medium-text: #5A5A5A;
+  --shadow-soft: 0 4px 20px rgba(139, 115, 85, 0.08);
+  --shadow-medium: 0 8px 30px rgba(139, 115, 85, 0.12);
+  --shadow-strong: 0 12px 40px rgba(139, 115, 85, 0.15);
+  --transition-smooth: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --border-radius-lg: 25px;
+  --border-radius-md: 15px;
+  --border-radius-sm: 10px;
+}
+
+/* Reset et base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  background: linear-gradient(135deg, var(--cream) 0%, var(--light-cream) 100%);
+  color: var(--dark-text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  padding-top: 140px;
+  transition: padding-top 0.4s ease;
+}
+
+body.scrolled {
+  padding-top: 100px;
+}
+
+/* Header avec animation d'entrée */
+.app-header {
+  animation: slideDownFade 0.8s ease-out;
+  position: relative;
+  z-index: 1000;
+}
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Contenu principal avec effet de révélation */
+.main-content {
+  min-height: calc(100vh - 200px);
+  position: relative;
+  padding: 3rem 0;
+}
+
+.page-transition {
+  position: relative;
+  animation: contentReveal 0.8s ease-out 0.3s both;
+}
+
+@keyframes contentReveal {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Sections avec animations séquentielles */
+app-chef, app-commentaire, app-plat-detail, app-reserv-tab, app-clients, app-reservation-simple {
+  display: block;
+  margin: 5rem 0;
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+app-chef {
+  animation-delay: 0.2s;
+}
+
+app-commentaire {
+  animation-delay: 0.4s;
+}
+
+app-plat-detail {
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Footer avec animation d'apparition */
+.app-footer {
+  animation: fadeIn 0.8s ease-out 0.6s both;
+  position: relative;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Loader de transition entre les pages */
+.page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--cream) 0%, var(--light-cream) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+}
+
+.page-loader.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.loader-content {
+  text-align: center;
+  animation: pulseSoft 2s ease-in-out infinite;
+}
+
+/* Animation de tasse de café marron */
+.coffee-cup {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 2rem;
+}
+
+.cup {
+  width: 70px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--primary-brown), var(--dark-brown));
+  border-radius: 0 0 25px 25px;
+  position: relative;
+  margin: 0 auto;
+  box-shadow: 0 8px 20px rgba(139, 115, 85, 0.3);
+}
+
+.cup::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: -8px;
+  width: 86px;
+  height: 20px;
+  background: linear-gradient(135deg, var(--primary-brown), var(--dark-brown));
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(139, 115, 85, 0.2);
+}
+
+.cup::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  right: -25px;
+  width: 18px;
+  height: 35px;
+  background: transparent;
+  border: 6px solid var(--primary-brown);
+  border-left: none;
+  border-radius: 0 25px 25px 0;
+}
+
+.handle {
+  position: absolute;
+  right: -18px;
+  top: 12px;
+  width: 25px;
+  height: 30px;
+  border: 6px solid var(--primary-brown);
+  border-left: none;
+  border-radius: 0 25px 25px 0;
+}
+
+/* Vapeur animée */
+.steam {
+  position: absolute;
+  background: rgba(255, 248, 240, 0.7);
+  border-radius: 12px;
+  animation: steamAnimation 3s ease-in-out infinite;
+  box-shadow: 0 2px 8px rgba(139, 115, 85, 0.2);
+}
+
+.steam:nth-child(1) {
+  width: 10px;
+  height: 25px;
+  top: -30px;
+  left: 20px;
+  animation-delay: 0.2s;
+}
+
+.steam:nth-child(2) {
+  width: 12px;
+  height: 30px;
+  top: -35px;
+  left: 35px;
+  animation-delay: 0.5s;
+}
+
+.steam:nth-child(3) {
+  width: 8px;
+  height: 22px;
+  top: -32px;
+  left: 50px;
+  animation-delay: 0.8s;
+}
+
+@keyframes steamAnimation {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-20px) scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+.loader-content p {
+  color: var(--primary-brown);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+  animation: textPulse 2s ease-in-out infinite;
+  text-shadow: 0 2px 4px rgba(139, 115, 85, 0.2);
+}
+
+@keyframes pulseSoft {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes textPulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+/* Effets de transition entre les routes */
+router-outlet + * {
+  display: block;
+  animation: pageSlide 0.6s ease-out;
+}
+
+@keyframes pageSlide {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Background patterns subtils marron */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 15% 85%, rgba(139, 115, 85, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 85% 15%, rgba(210, 105, 30, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 45% 45%, rgba(165, 42, 42, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Scrollbar personnalisée marron */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary-brown), var(--golden-brown));
+  border-radius: 10px;
+  border: 2px solid var(--cream);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--golden-brown), var(--light-brown));
+  transform: scale(1.1);
+}
+
+/* Selection de texte marron */
+::selection {
+  background: rgba(139, 115, 85, 0.3);
+  color: var(--dark-text);
+}
+
+/* Animation pour les boutons et interactions */
+.btn-animated {
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+}
+
+.btn-animated::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s;
+}
+
+.btn-animated:hover::before {
+  left: 100%;
+}
+
+/* Effet de brillance sur les cartes */
+.card-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-glow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(210, 105, 30, 0.1), transparent);
+  transition: left 0.8s;
+}
+
+.card-glow:hover::after {
+  left: 100%;
+}
+
+/* Animation de particules flottantes */
+.floating-particle {
+  position: absolute;
+  background: radial-gradient(circle, var(--golden-brown) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: floatParticle 6s ease-in-out infinite;
+  opacity: 0.1;
+}
+
+@keyframes floatParticle {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(20px, -15px) rotate(90deg);
+  }
+  50% {
+    transform: translate(-10px, -25px) rotate(180deg);
+  }
+  75% {
+    transform: translate(-20px, -10px) rotate(270deg);
+  }
+}
+
+/* Animation pour les nouveaux éléments ajoutés dynamiquement */
+.fade-in-element {
+  animation: fadeInScale 0.6s ease-out;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Animation de pulse pour les notifications */
+@keyframes notificationPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(210, 105, 30, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(210, 105, 30, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(210, 105, 30, 0);
+  }
+}
+
+.notification-pulse {
+  animation: notificationPulse 2s infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  body {
+    padding-top: 130px;
+  }
+  
+  body.scrolled {
+    padding-top: 90px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 120px;
+  }
+  
+  body.scrolled {
+    padding-top: 80px;
+  }
+  
+  .main-content {
+    padding: 2rem 0;
+    min-height: calc(100vh - 150px);
+  }
+  
+  app-chef, app-commentaire, app-plat-detail, app-reserv-tab, app-clients, app-reservation-simple {
+    margin: 3rem 0;
+  }
+  
+  .coffee-cup {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .cup {
+    width: 55px;
+    height: 45px;
+  }
+  
+  .cup::before {
+    width: 70px;
+    height: 16px;
+  }
+  
+  .loader-content p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 110px;
+  }
+  
+  body.scrolled {
+    padding-top: 70px;
+  }
+  
+  .main-content {
+    padding: 1.5rem 0;
+  }
+  
+  .loader-content p {
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+  
+  app-chef, app-commentaire, app-plat-detail, app-reserv-tab, app-clients, app-reservation-simple {
+    margin: 2rem 0;
+  }
+}
+
+/* Mode réduit de mouvement pour l'accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Effet de gradient animé pour les titres */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary-brown), var(--golden-brown), var(--light-brown));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Animation de rebond pour les éléments interactifs */
+.bounce-hover {
+  transition: var(--transition-bounce);
+}
+
+.bounce-hover:hover {
+  transform: translateY(-5px);
+}
+
+/* Ombre portée animée */
+.shadow-lift {
+  transition: var(--transition-smooth);
+}
+
+.shadow-lift:hover {
+  box-shadow: 
+    var(--shadow-strong),
+    0 0 0 1px rgba(139, 115, 85, 0.1);
+}

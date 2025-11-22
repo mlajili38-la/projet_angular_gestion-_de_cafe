@@ -1,0 +1,55 @@
+<section class="plats-section" *ngIf="categoryPlats.length > 0">
+  <!-- Header avec animation -->
+  <div class="section-header">
+    <h2 class="section-title">Nos {{ category | titlecase }} <span class="emoji">🍽️</span></h2>
+    <div class="title-decoration"></div>
+  </div>
+
+  <!-- Grid des plats -->
+  <div class="plats-grid">
+    <div class="plat-card" 
+         *ngFor="let plat of categoryPlats; let i = index" 
+         [attr.data-category]="plat.categorie"
+         [style.animation-delay]="i * 0.1 + 's'">
+      
+      <!-- Image avec overlay -->
+      <div class="plat-img-container">
+        <img [src]="plat.image" [alt]="plat.nom" class="plat-img">
+        <div class="plat-overlay">
+          <button class="reserve-btn" (click)="reserver(plat)">
+            <span>Réserver</span>
+            <svg viewBox="0 0 24 24">
+              <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="plat-badge">{{ plat.categorie | titlecase }}</div>
+      </div>
+
+      <!-- Informations du plat -->
+      <div class="plat-info">
+        <div class="plat-header">
+          <h3 class="plat-nom">{{ plat.nom }}</h3>
+          <span class="plat-prix">{{ formatPrix(plat.prix) }}</span>
+        </div>
+        <p class="plat-desc">{{ plat.description }}</p>
+        
+        <!-- Actions -->
+        <div class="plat-actions">
+          <button class="btn-primary" (click)="reserver(plat)">
+            <span>Commander</span>
+            <svg viewBox="0 0 24 24">
+              <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+            </svg>
+          </button>
+          <button class="btn-secondary" (click)="showDetails(plat)">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  

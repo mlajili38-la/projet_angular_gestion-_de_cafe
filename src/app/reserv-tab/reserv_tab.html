@@ -1,0 +1,193 @@
+<div class="reservation-container">
+  <div class="background-overlay"></div>
+  <div class="reservation-content">
+    <h2>Réserver une table</h2>
+    
+    <form (ngSubmit)="validerReservation()" #form="ngForm" class="reserv-form">
+      
+      <!-- Informations personnelles -->
+      <div class="form-group">
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" [(ngModel)]="reservation.nom" name="nom" required 
+               placeholder="Votre nom complet" />
+        <span class="error" *ngIf="errors.nom">{{errors.nom}}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email :</label>
+        <input type="email" id="email" [(ngModel)]="reservation.email" name="email" required 
+               placeholder="votre@email.com" />
+        <span class="error" *ngIf="errors.email">{{errors.email}}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="nbPersonnes">Nombre de personnes :</label>
+        <input type="number" id="nbPersonnes" [(ngModel)]="reservation.nbPersonnes" 
+               name="nbPersonnes" min="1" max="20" placeholder="1" />
+        <span class="error" *ngIf="errors.nbPersonnes">{{errors.nbPersonnes}}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="numTable">Numéro de table :</label>
+        <input type="text" id="numTable" [(ngModel)]="reservation.numTable" name="numTable" 
+               placeholder="Ex: Table 12" />
+        <span class="error" *ngIf="errors.numTable">{{errors.numTable}}</span>
+      </div>
+
+      <!-- Sélection des plats -->
+      <div class="form-group">
+        <label for="plats">Choisissez vos plats :</label>
+        <div class="plats-selection">
+          
+          <!-- Filtres par catégorie -->
+          <div class="categories-filters">
+            <button type="button" 
+                    *ngFor="let category of categories" 
+                    class="category-filter"
+                    [class.active]="selectedCategory === category"
+                    (click)="filterByCategory(category)">
+              {{ category | titlecase }}
+            </button>
+            <button type="button" 
+                    class="category-filter"
+                    [class.active]="selectedCategory === 'all'"
+                    (click)="filterByCategory('all')">
+              Tous
+            </button>
+          </div>
+
+          <!-- Liste des plats -->
+          <div class="plats-list">
+            <div class="plat-item" *ngFor="let plat of filteredPlats">
+              <div class="plat-header">
+                <img [src]="plat.image" [alt]="plat.nom" class="plat-image" 
+                     (error)="plat.image = '/assets/default-food.jpg'">
+                <div class="plat-info-main">
+                  <div class="plat-nom-prix">
+                    <span class="plat-nom">{{ plat.nom }}</span>
+                    <span class="plat-prix">{{ plat.prix }} DT</span>
+                  </div>
+                  <span class="plat-desc">{{ plat.description }}</span>
+                </div>
+              </div>
+              
+              <div class="quantity-controls">
+                <button type="button" class="quantity-btn" 
+                        (click)="decreaseQuantity(plat)"
+                        [disabled]="getPlatQuantity(plat) === 0">
+                  -
+                </button>
+                <span class="quantity-display">
+                  {{ getPlatQuantity(plat) }}
+                </span>
+                <button type="button" class="quantity-btn" 
+                        (click)="increaseQuantity(plat)">
+                  +
+                </button>
+                <span class="quantity-total" *ngIf="getPlatQuantity(plat) > 0">
+                  = {{ getPlatQuantity(plat) * plat.prix }} DT
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="no-plats" *ngIf="filteredPlats.length === 0">
+            <p>Aucun plat disponible dans cette catégorie.</p>
+          </div>
+
+          <!-- Panier des plats sélectionnés -->
+          <div class="selected-plats" *ngIf="getTotalSelectedItems() > 0">
+            <h4>Votre commande ({{ getTotalSelectedItems() }} article(s))</h4>
+            <div class="selected-list">
+              <div class="selected-item" *ngFor="let selected of getSelectedPlatsWithQuantities()">
+                <img [src]="selected.plat.image" [alt]="selected.plat.nom" class="selected-image"
+                     (error)="selected.plat.image = '/assets/default-food.jpg'">
+                <div class="selected-details">
+                  <span class="selected-nom">{{ selected.plat.nom }}</span>
+                  <span class="selected-quantity">x{{ selected.quantity }}</span>
+                </div>
+                <div class="selected-prices">
+                  <span class="selected-unit-price">{{ selected.plat.prix }} DT × {{ selected.quantity }}</span>
+                  <span class="selected-total-price">{{ selected.quantity * selected.plat.prix }} DT</span>
+                </div>
+                <button type="button" class="remove-btn" (click)="removePlat(selected.plat)"
+                        title="Supprimer ce plat">
+                  ×
+                </button>
+              </div>
+            </div>
+            <div class="total-price">
+              <span>Total:</span>
+              <strong>{{ calculateTotal() }} DT</strong>
+            </div>
+          </div>
+
+        </div>
+        <span class="error" *ngIf="errors.plats">{{errors.plats}}</span>
+      </div>
+
+      <!-- Bouton de réservation -->
+      <button type="submit" class="btn-reserv" [disabled]="getTotalSelectedItems() === 0">
+        <span>Réserver maintenant</span>
+        <span class="total-badge" *ngIf="getTotalSelectedItems() > 0">
+          {{ calculateTotal() }} DT
+        </span>
+      </button>
+
+    </form>
+  </div>
+</div>
+<!-- Message de Confirmation -->
+<div class="confirmation-overlay" *ngIf="showConfirmation">
+  <div class="confirmation-modal">
+    <div class="confirmation-header">
+      <span class="confirmation-icon">✅</span>
+      <h3>Réservation Confirmée !</h3>
+    </div>
+    
+    <div class="confirmation-content" *ngIf="reservationConfirmation">
+      <div class="confirmation-details">
+        <div class="detail-item">
+          <strong>Client:</strong> {{ reservationConfirmation.client.nom }}
+        </div>
+        <div class="detail-item">
+          <strong>Email:</strong> {{ reservationConfirmation.client.email }}
+        </div>
+        <div class="detail-item">
+          <strong>Table:</strong> {{ reservationConfirmation.table }}
+        </div>
+        <div class="detail-item">
+          <strong>Personnes:</strong> {{ reservationConfirmation.nbPersonnes }}
+        </div>
+        <div class="detail-item">
+          <strong>Date:</strong> {{ reservationConfirmation.date }}
+        </div>
+        
+        <div class="plats-confirmation">
+          <strong>Plats commandés:</strong>
+          <div class="plat-confirmation-item" 
+               *ngFor="let item of reservationConfirmation.plats">
+            • {{ item.plat.nom }} x{{ item.quantity }} = {{ item.plat.prix * item.quantity }} DT
+          </div>
+        </div>
+        
+        <div class="total-confirmation">
+          <strong>Total:</strong> {{ reservationConfirmation.total }} DT
+        </div>
+      </div>
+      
+      <div class="confirmation-message">
+        <p>🎉 Merci pour votre réservation ! Vous serez redirigé vers la liste des clients dans quelques secondes.</p>
+      </div>
+    </div>
+    
+    <div class="confirmation-actions">
+      <button class="btn-secondary" (click)="faireUneNouvelleReservation()">
+        Nouvelle Réservation
+      </button>
+      <button class="btn-primary" (click)="allerVersClients()">
+        Voir les Clients
+      </button>
+    </div>
+  </div>
+  
+</div>

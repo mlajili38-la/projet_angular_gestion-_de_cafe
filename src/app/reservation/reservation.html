@@ -1,0 +1,127 @@
+<div class="reservation-container">
+  <div class="reservation-card">
+    <h2>Finaliser la Réservation 🧾</h2>
+
+    <!-- Bouton debug -->
+    <button type="button" class="btn-debug" (click)="debugLocalStorage()" style="margin-bottom: 1rem; background: #ff4444; color: white; border: none; padding: 0.5rem; border-radius: 5px;">
+      🔍 Debug localStorage
+    </button>
+
+    <!-- Résumé des plats sélectionnés -->
+    <div class="plats-resume" *ngIf="platsSelectionnes.length > 0">
+      <h3>Votre Commande</h3>
+      <div class="plats-list">
+        <div class="plat-item" *ngFor="let item of platsSelectionnes; let i = index">
+          <span class="plat-nom">{{ item.plat.nom }}</span>
+          <span class="plat-quantity">x{{ item.quantity }}</span>
+          <span class="plat-prix">{{ (item.plat.prix * item.quantity).toFixed(2) }} DT</span>
+        </div>
+      </div>
+      <div class="total-section">
+        <strong>Total : {{ client.total.toFixed(2) }} DT</strong>
+      </div>
+      <button type="button" class="btn-modifier" (click)="modifierPlats()">
+        ✏️ Modifier les plats
+      </button>
+    </div>
+
+    <!-- Message si aucun plat -->
+    <div class="no-plats-warning" *ngIf="platsSelectionnes.length === 0">
+      <div class="warning-icon">⚠️</div>
+      <h3>Aucun plat sélectionné</h3>
+      <p>Vous n'avez sélectionné aucun plat. Veuillez retourner à la sélection.</p>
+      <button type="button" class="btn-modifier" (click)="modifierPlats()">
+        🍽️ Sélectionner des plats
+      </button>
+    </div>
+
+    <form #form="ngForm" (ngSubmit)="validerReservation()" class="reservation-form">
+      
+      <div class="form-group">
+        <label for="nom">Nom :</label>
+        <input
+          type="text"
+          id="nom"
+          name="nom"
+          [(ngModel)]="client.nom"
+          required
+          #nom="ngModel"
+          placeholder="Entrez votre nom complet"
+        />
+        <small *ngIf="(nom.invalid && nom.touched) || errors.nom" class="error">
+          {{ errors.nom || 'Le nom est obligatoire.' }}
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email :</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="client.email"
+          required
+          email
+          #email="ngModel"
+          placeholder="exemple@email.com"
+        />
+        <small *ngIf="(email.invalid && email.touched) || errors.email" class="error">
+          {{ errors.email || 'Email invalide.' }}
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="nbPersonnes">Nombre de personnes :</label>
+        <input
+          type="number"
+          id="nbPersonnes"
+          name="nbPersonnes"
+          [(ngModel)]="client.nbPersonnes"
+          required
+          min="1"
+          max="20"
+          #nbPersonnes="ngModel"
+          placeholder="1"
+        />
+        <small *ngIf="(nbPersonnes.invalid && nbPersonnes.touched) || errors.nbPersonnes" class="error">
+          {{ errors.nbPersonnes || 'Nombre de personnes invalide.' }}
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="numTable">Numéro de table :</label>
+        <input
+          type="text"
+          id="numTable"
+          name="numTable"
+          [(ngModel)]="client.numTable"
+          required
+          #numTable="ngModel"
+          placeholder="Ex: Table 12"
+        />
+        <small *ngIf="(numTable.invalid && numTable.touched) || errors.numTable" class="error">
+          {{ errors.numTable || 'Numéro de table obligatoire.' }}
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="plat">Résumé de la commande :</label>
+        <textarea
+          id="plat"
+          name="plat"
+          [(ngModel)]="client.platNom"
+          readonly
+          class="plat-summary"
+        ></textarea>
+      </div>
+
+      <div class="error" *ngIf="errors.plats">
+        {{ errors.plats }}
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="platsSelectionnes.length === 0">
+        ✅ Confirmer la Réservation
+      </button>
+    </form>
+  </div>
+</div>

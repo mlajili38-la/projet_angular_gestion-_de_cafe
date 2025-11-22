@@ -1,0 +1,61 @@
+<div class="clients-container">
+  <!-- Message de bienvenue pour les nouvelles réservations -->
+  <div class="welcome-message" *ngIf="showWelcomeMessage">
+    <div class="welcome-content">
+      <span class="welcome-icon">🎉</span>
+      <div>
+        <h3>Nouvelle Réservation Confirmée !</h3>
+        <p>Félicitations ! Un nouveau client vient de rejoindre notre restaurant.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Nos Clients Fidèles ✨</h2>
+
+  <div *ngIf="clients.length > 0" class="clients-grid">
+    <div *ngFor="let client of clients; let last = last" 
+         class="client-card" 
+         [class.new-client]="last && showWelcomeMessage">
+      
+      <img [src]="client.avatar" [alt]="'Photo de ' + client.nom" class="avatar" />
+      
+      <div class="client-info">
+        <h3>{{ client.nom }}</h3>
+        
+        <p>
+          <strong>📧 Email :</strong> 
+          <span>{{ client.email }}</span>
+        </p>
+        
+        <p>
+          <strong>🍽️ Commande :</strong> 
+          <span>{{ client.platNom }}</span>
+        </p>
+        
+        <p>
+          <strong>⭐ Réservations :</strong> 
+          <span class="reservation-count">{{ client.reservations }}</span>
+        </p>
+        
+        <p *ngIf="client.dateReservation" class="reservation-date">
+          <strong>📅 Dernière visite :</strong> {{ client.dateReservation }}
+        </p>
+        
+        <p *ngIf="client.total" class="reservation-total">
+          <strong>💰 Total :</strong> {{ client.total }} DT
+        </p>
+      </div>
+
+      <div class="client-badge" *ngIf="last && showWelcomeMessage">
+        Nouveau !
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="clients.length === 0" class="empty">
+    <p>👥 Aucun client pour le moment</p>
+    <p style="margin-top: 1rem; opacity: 0.8; font-size: 1rem;">
+      Les clients apparaîtront ici après leurs premières réservations.
+    </p>
+  </div>
+</div>

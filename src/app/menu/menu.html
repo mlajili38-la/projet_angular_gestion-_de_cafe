@@ -1,0 +1,24 @@
+<div class="menu-container">
+  <div class="background-overlay"></div>
+  <div class="menu-content">
+    <h2>Notre Menu</h2>
+    
+    <div class="categories-grid">
+      <div class="category-card" *ngFor="let cat of categories; let i = index" 
+           [style.animation-delay]="i * 0.1 + 's'">
+        <div class="category-img">
+          <img [src]="cat.image" [alt]="cat.nom">
+          <div class="card-overlay">
+            <a [routerLink]="['/plat', cat.id]" class="btn-detail">Voir détail</a>
+          </div>
+        </div>
+        <div class="category-info">
+          <h3>{{ cat.nom }}</h3>
+          <div class="category-actions">
+            <a [routerLink]="['/plat', cat.id]" class="btn-link">Explorer</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

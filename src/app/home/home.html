@@ -1,0 +1,24 @@
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>{{ bienvenueMessage }}</h1>
+    <p>{{ description }}</p>
+    <div class="buttons">
+      <a routerLink="menu" class="btn">Voir le Menu</a>
+      <a routerLink="reservation1" class="btn">Réserver une Table</a>
+    </div>
+  </div>
+</div>
+
+<div class="home-preview">
+  <h2>Aperçu de nos plats</h2>
+  <div class="menu-preview">
+    <div class="plat-card" *ngFor="let plat of plats">
+      <div class="plat-img">
+        <img [src]="plat.image" [alt]="plat.nom">
+      </div>
+      <h3>{{ plat.nom }}</h3>
+      <p>{{ plat.prix }}DT</p>
+    </div>
+  </div>
+</div>

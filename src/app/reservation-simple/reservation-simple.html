@@ -1,0 +1,72 @@
+<div class="reservation-simple-container">
+    <div class="reservation-card">
+      <h2>Commander 🍽️</h2>
+  
+      <!-- Résumé du plat -->
+      <div class="plat-resume" *ngIf="platSelectionne">
+        <div class="plat-header">
+          <img [src]="platSelectionne.image" [alt]="platSelectionne.nom" class="plat-image">
+          <div class="plat-info">
+            <h3>{{ platSelectionne.nom }}</h3>
+            <p class="plat-description">{{ platSelectionne.description }}</p>
+            <div class="quantity-controls">
+              <button type="button" class="quantity-btn" (click)="modifierQuantite(-1)">-</button>
+              <span class="quantity">{{ client.quantity }}</span>
+              <button type="button" class="quantity-btn" (click)="modifierQuantite(1)">+</button>
+            </div>
+            <div class="plat-prix">
+              Prix unitaire: <strong>{{ platSelectionne.prix }} DT</strong>
+            </div>
+            <div class="total-prix">
+              Total: <strong>{{ (platSelectionne.prix * client.quantity).toFixed(2) }} DT</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Formulaire client -->
+      <form #form="ngForm" (ngSubmit)="validerReservation()" class="reservation-form">
+        <div class="form-group">
+          <label for="nom">Votre nom :</label>
+          <input
+            type="text"
+            id="nom"
+            name="nom"
+            [(ngModel)]="client.nom"
+            required
+            #nom="ngModel"
+            placeholder="Entrez votre nom complet"
+          />
+          <small *ngIf="(nom.invalid && nom.touched) || errors.nom" class="error">
+            {{ errors.nom || 'Le nom est obligatoire.' }}
+          </small>
+        </div>
+  
+        <div class="form-group">
+          <label for="email">Votre email :</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            [(ngModel)]="client.email"
+            required
+            email
+            #email="ngModel"
+            placeholder="exemple@email.com"
+          />
+          <small *ngIf="(email.invalid && email.touched) || errors.email" class="error">
+            {{ errors.email || 'Email invalide.' }}
+          </small>
+        </div>
+  
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" (click)="annuler()">
+            ❌ Annuler
+          </button>
+          <button type="submit" class="btn btn-primary">
+            ✅ Confirmer la commande
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
